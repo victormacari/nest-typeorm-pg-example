@@ -14,15 +14,15 @@ export class Book {
 id: string;
 
 @Column()
-title!: string;
+title: string;
 
-@ManyToOne(() => Author, author => author.books)
+@ManyToOne(() => Author, author => author.books, { onDelete: 'CASCADE' })
 author: Author;
 
 @Column({ unique: true })
-iban!: string;
+iban: string;
 
-@Column({ name:'published_at',  type: 'date', nullable: true})
+@Column({ name:'published_at',  type: 'date', nullable: true })
 publishedAt?: Date;
 
 @CreateDateColumn({ name: 'created_at' })

@@ -1,9 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import {AuthorService } from '../../author/services/author.service'
-import { CreateBookDto } from '../dto/create-book.dto';
-import { UpdateBookDto } from '../dto/update-book.dto';
+import { AuthorService } from '../../author/services/author.service'
 import { Book } from '../entities/book.entity';
 
 @Injectable()
@@ -38,50 +36,42 @@ export class BookService {
     return book;
   }
 
-  async create(author: string, createBookDto: CreateBookDto): Promise<Book> {
-    const { iban, title } = createBookDto;
+  async create(authorId: number, title: string, iban: string): Promise<Book> {
 
     await this.verifyBookByIBAN(iban);
 
-    const bookAuthor = await this.authorService.findOne(+author);
+    const author = await this.authorService.findOne(authorId);
 
-    const book = new Book();
-    book.title = title;
-    book.iban = iban;
-    book.author = bookAuthor;
-    
-    await this.bookRepository.save(book);
+    const book = this.bookRepository.create({ title, iban, author });
 
-    return book;
+    return this.bookRepository.save(book);
   }
 
-  async findAll(authorId: string): Promise<Book[]> {
-    const author = await this.authorService.findOne(+authorId);
+  async findAll(authorId: number): Promise<Book[]> {
+    const author = await this.authorService.findOne(authorId);
     if (!author) {
-      throw new NotFoundException(`The author ${authorId} could not be found`)
+      throw new NotFoundException('author not found');
     }
     return this.bookRepository.find({ author });
   }
 
-  findOne(id: number): Promise<Book> {
-    return this.bookRepository.findOneOrFail(id);
+ 
+
+  async update(id: number, attrs: Partial<Book>): Promise<Book> {
+    const book = await this.verifyBookByID(id);
+    
+    if (attrs.iban) {
+      await this.verifyBookByIBAN(attrs.iban);
+    }
+    
+    Object.assign(book, attrs);
+   
+    return this.bookRepository.save(book);
   }
 
-  async update(id: number, updateBookDto: UpdateBookDto) {
-    const { iban, title } = updateBookDto;
+  async remove(id: number): Promise<Book> {
+    const book = await this.verifyBookByID(id);
 
-    await this.verifyBookByID(id);
-
-    await this.verifyBookByIBAN(iban);
-     
-    const book = await this.bookRepository.findOne(id);
-    book.title = title;
-    book.iban = iban;
-    await this.bookRepository.save(book);
-
-  }
-
-  remove(id: number) {
-    return this.bookRepository.delete(id);
+    return this.bookRepository.remove(book);
   }
 }

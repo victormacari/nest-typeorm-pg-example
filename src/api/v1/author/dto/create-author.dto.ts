@@ -1,19 +1,18 @@
-import { IsNotEmpty, MaxLength, MinLength, IsDate } from 'class-validator';
+import { IsString, MaxLength, MinLength, IsDate } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class CreateAuthorDto {
 
-  @IsNotEmpty()
+  @IsString()
   @MinLength(2)
   @MaxLength(15)
-  first_name: string;
+  firstName: string;
 
-  @IsNotEmpty()
+  @IsString()
   @MinLength(2)
   @MaxLength(15)
-  last_name: string;
+  lastName: string;
 
-  @IsNotEmpty()
   @IsDate()
   @Type(() => Date)
   birthday: Date;

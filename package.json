@@ -29,10 +29,10 @@
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "dotenv": "^10.0.0",
-    "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
+    "sqlite3": "^5.0.2",
     "swagger-ui-express": "^4.1.6",
     "typeorm": "^0.2.34"
   },

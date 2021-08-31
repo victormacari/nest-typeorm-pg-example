@@ -1,15 +1,13 @@
-import { IsNotEmpty, MaxLength, MinLength } from 'class-validator';
+import { IsString, MaxLength, MinLength } from 'class-validator';
 
-export class CreateBookDto {
-  
-  @IsNotEmpty()
-  @MinLength(1)
-  @MaxLength(60)
-  title: string;
+export class CreateBookDto { 
+ @IsString()
+ @MinLength(1)
+ @MaxLength(60)
+ title: string;
 
-  @IsNotEmpty()
+  @IsString()
   @MinLength(10)
   @MaxLength(45)
   iban: string;
-
 }

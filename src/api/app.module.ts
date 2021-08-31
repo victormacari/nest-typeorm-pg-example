@@ -14,10 +14,6 @@ import { BookModule } from '../api/v1/book/book.module';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: configService.get('DB_TYPE'),
-        host: configService.get('DB_HOST'),
-        port: configService.get('DB_PORT'),
-        username: configService.get('DB_USER'),
-        password: configService.get('DB_PASSWORD'),
         database: configService.get('DATABASE'),
         entities: [Author, Book],
         synchronize: true,
@@ -25,7 +21,6 @@ import { BookModule } from '../api/v1/book/book.module';
     } as TypeOrmModuleAsyncOptions),
     AuthorModule,
     BookModule,
-  ],
-  
+  ],  
 })
 export class AppModule {}
