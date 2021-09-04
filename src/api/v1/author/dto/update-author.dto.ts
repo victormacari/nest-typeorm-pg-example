@@ -1,20 +1,27 @@
-import { IsOptional, MaxLength, MinLength, IsDate } from 'class-validator';
+import { 
+  IsOptional, 
+  IsString,
+  IsDate,
+  MaxLength, 
+  MinLength, 
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class UpdateAuthorDto {
+  @IsString()
   @MinLength(2)
   @MaxLength(15)
   @IsOptional()
-  first_name: string;
-
+  firstName: string;
+  
+  @IsString()
   @MinLength(2)
   @MaxLength(15)
   @IsOptional()
-  last_name: string;
+  lastName: string;
 
   @IsDate()
   @Type(() => Date)
   @IsOptional()
   birthday: Date;
-
 }
