@@ -62,7 +62,7 @@ export class AuthorController {
   async update(
     @Param('id') id: string, 
     @Body() body: UpdateAuthorDto
-    ) {
+    ): Promise<Author> {
       try {
         return await this.authorService.update(+id, body);
       } catch (error) {
@@ -73,7 +73,7 @@ export class AuthorController {
   @Delete('/:id')
   @ApiResponse({ status: 200, description: 'Removed author' })
   @ApiResponse({ status: 400, description: 'Remove author failed' })
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string): Promise<Author> {
     try {
       return await this.authorService.remove(+id);
     } catch (error) {
