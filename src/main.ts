@@ -7,10 +7,9 @@ import { AppModule } from './api/app.module';
 (async () => {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const options = new DocumentBuilder()
-                   .setTitle('Books Demo')
-                   .setDescription('Books Demo description')
+                   .setTitle('Books API v1')
+                   .setDescription('Books API v1 description')
                    .setVersion('1.0')
-                   .addBearerAuth()
                    .build()
 
    const document = SwaggerModule.createDocument(app, options);
