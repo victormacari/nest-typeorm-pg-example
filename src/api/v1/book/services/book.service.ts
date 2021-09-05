@@ -16,7 +16,7 @@ export class BookService {
     private readonly authorService: AuthorService,
   ) {}
 
-  getByIBAN(iban: string): Promise<Book> {
+  async getByIBAN(iban: string): Promise<Book> {
     return this.bookRepository.findOne({ iban });
   }
 
