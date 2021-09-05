@@ -17,10 +17,10 @@ import { BookModule } from '../api/v1/book/book.module';
         database: configService.get('DATABASE'),
         entities: [Author, Book],
         synchronize: true,
-      })
+      }),
     } as TypeOrmModuleAsyncOptions),
     AuthorModule,
     BookModule,
-  ],  
+  ],
 })
 export class AppModule {}

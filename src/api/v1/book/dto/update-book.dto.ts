@@ -6,7 +6,7 @@ export class UpdateBookDto {
   @MaxLength(60)
   @IsOptional()
   title: string;
- 
+
   @IsString()
   @MinLength(10)
   @MaxLength(45)

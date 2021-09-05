@@ -1,12 +1,12 @@
-import { 
-  Controller, 
-  Get, 
-  Post, 
-  Body, 
-  Patch, 
-  Param, 
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
   Delete,
-  BadRequestException
+  BadRequestException,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthorService } from '../services/author.service';
@@ -60,14 +60,14 @@ export class AuthorController {
   @ApiResponse({ status: 200, description: 'Updated author' })
   @ApiResponse({ status: 400, description: 'Update author failed' })
   async update(
-    @Param('id') id: string, 
-    @Body() body: UpdateAuthorDto
-    ): Promise<Author> {
-      try {
-        return await this.authorService.update(+id, body);
-      } catch (error) {
-        throw new BadRequestException(error.mesage);
-      }
+    @Param('id') id: string,
+    @Body() body: UpdateAuthorDto,
+  ): Promise<Author> {
+    try {
+      return await this.authorService.update(+id, body);
+    } catch (error) {
+      throw new BadRequestException(error.mesage);
+    }
   }
 
   @Delete('/:id')

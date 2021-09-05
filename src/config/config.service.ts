@@ -19,5 +19,4 @@ export class ConfigService {
   isEnv(env: string): boolean {
     return this.envConfig.APP_ENV === env;
   }
-
 }

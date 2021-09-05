@@ -1,9 +1,9 @@
-import { 
-  IsOptional, 
+import {
+  IsOptional,
   IsString,
   IsDate,
-  MaxLength, 
-  MinLength, 
+  MaxLength,
+  MinLength,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -13,7 +13,7 @@ export class UpdateAuthorDto {
   @MaxLength(15)
   @IsOptional()
   firstName: string;
-  
+
   @IsString()
   @MinLength(2)
   @MaxLength(15)

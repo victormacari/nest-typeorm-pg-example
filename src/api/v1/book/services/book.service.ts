@@ -1,15 +1,19 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AuthorService } from '../../author/services/author.service'
+import { AuthorService } from '../../author/services/author.service';
 import { Book } from '../entities/book.entity';
 
 @Injectable()
 export class BookService {
   constructor(
-   @InjectRepository(Book)
-   private readonly bookRepository: Repository<Book>,
-   private readonly authorService: AuthorService
+    @InjectRepository(Book)
+    private readonly bookRepository: Repository<Book>,
+    private readonly authorService: AuthorService,
   ) {}
 
   getByIBAN(iban: string): Promise<Book> {
@@ -22,7 +26,7 @@ export class BookService {
     if (!book) {
       throw new NotFoundException('The book could not be found.');
     }
-    
+
     return book;
   }
 
@@ -37,7 +41,6 @@ export class BookService {
   }
 
   async create(authorId: number, title: string, iban: string): Promise<Book> {
-
     await this.verifyBookByIBAN(iban);
 
     const author = await this.authorService.findOne(authorId);
@@ -55,17 +58,15 @@ export class BookService {
     return this.bookRepository.find({ author });
   }
 
- 
-
   async update(id: number, attrs: Partial<Book>): Promise<Book> {
     const book = await this.verifyBookByID(id);
-    
+
     if (attrs.iban) {
       await this.verifyBookByIBAN(attrs.iban);
     }
-    
+
     Object.assign(book, attrs);
-   
+
     return this.bookRepository.save(book);
   }
 

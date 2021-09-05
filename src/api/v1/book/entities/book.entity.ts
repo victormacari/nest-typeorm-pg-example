@@ -1,36 +1,39 @@
-import { 
-  Entity, 
-  PrimaryGeneratedColumn, 
-  UpdateDateColumn, 
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
   CreateDateColumn,
   Column,
   JoinColumn,
-  ManyToOne
- } from 'typeorm'; 
+  ManyToOne,
+} from 'typeorm';
 import { Author } from '../../author/entities/author.entity';
 
 @Entity({ name: 'books' })
 export class Book {
+  @PrimaryGeneratedColumn('increment')
+  id: string;
 
-@PrimaryGeneratedColumn('increment')
-id: string;
+  @Column()
+  title: string;
 
-@Column()
-title: string;
+  @Column({ unique: true })
+  iban: string;
 
-@Column({ unique: true })
-iban: string;
+  @ManyToOne(
+    () => Author,
+    author => author.books,
+    { onDelete: 'CASCADE' },
+  )
+  @JoinColumn({ name: 'author_id' })
+  author: Author;
 
-@ManyToOne(() => Author, author => author.books, {  onDelete: 'CASCADE' })
-@JoinColumn({ name: 'author_id' })
-author: Author;
+  @Column({ name: 'published_at', type: 'date', nullable: true })
+  publishedAt?: Date;
 
-@Column({ name:'published_at', type: 'date', nullable: true })
-publishedAt?: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-@CreateDateColumn({ name: 'created_at' })
-createdAt: Date;
-
-@UpdateDateColumn({ name: 'updated_at'})
-updatedAt: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

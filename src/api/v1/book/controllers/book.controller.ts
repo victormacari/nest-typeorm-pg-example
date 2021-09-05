@@ -1,12 +1,12 @@
-import { 
-  Controller, 
-  Get, 
-  Post, 
-  Body, 
-  Patch, 
-  Param, 
-  Delete, 
-  BadRequestException 
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  BadRequestException,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BookService } from '../services/book.service';
@@ -36,7 +36,7 @@ export class BookController {
       if (!book) {
         throw new BadRequestException('The book could not be found');
       }
-     
+
       return book;
     } catch (error) {
       throw new BadRequestException(error.message);
@@ -47,14 +47,14 @@ export class BookController {
   @ApiResponse({ status: 201, description: 'Added book' })
   @ApiResponse({ status: 400, description: 'Add book failed' })
   async create(
-    @Param('author_id') authorId: string, 
-    @Body() body: CreateBookDto
-    ): Promise<Book> {
+    @Param('author_id') authorId: string,
+    @Body() body: CreateBookDto,
+  ): Promise<Book> {
     try {
       const { title, iban } = body;
 
       return await this.bookService.create(+authorId, title, iban);
-    } catch(error) {
+    } catch (error) {
       throw new BadRequestException(error.message);
     }
   }
@@ -63,14 +63,14 @@ export class BookController {
   @ApiResponse({ status: 200, description: 'Updated book' })
   @ApiResponse({ status: 400, description: 'Update book failed' })
   async update(
-    @Param('id') id: string, 
-    @Body() body: UpdateBookDto
-    ): Promise<Book> {
-      try {
-        return await this.bookService.update(+id, body);
-      } catch (error) {
-        throw new BadRequestException(error.message);
-      }
+    @Param('id') id: string,
+    @Body() body: UpdateBookDto,
+  ): Promise<Book> {
+    try {
+      return await this.bookService.update(+id, body);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   @Delete('/:id')
