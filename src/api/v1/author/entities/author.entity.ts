@@ -11,15 +11,15 @@ import { Book } from '../../book/entities/book.entity';
 @Entity({ name: 'authors' })
 export class Author {
   @PrimaryGeneratedColumn('increment')
-  id: string;
+  id: number;
 
-  @Column({ name: 'first_name' })
+  @Column()
   firstName: string;
 
-  @Column({ name: 'last_name' })
+  @Column()
   lastName: string;
 
-  @Column({ type: 'date' })
+  @Column()
   birthday: Date;
 
   @OneToMany(
@@ -28,9 +28,9 @@ export class Author {
   )
   books: Book[];
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn()
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at' })
+  @UpdateDateColumn()
   updatedAt: Date;
 }

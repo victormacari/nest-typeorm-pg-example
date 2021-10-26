@@ -12,7 +12,7 @@ import { Author } from '../../author/entities/author.entity';
 @Entity({ name: 'books' })
 export class Book {
   @PrimaryGeneratedColumn('increment')
-  id: string;
+  id: number;
 
   @Column()
   title: string;
@@ -28,12 +28,12 @@ export class Book {
   @JoinColumn({ name: 'author_id' })
   author: Author;
 
-  @Column({ name: 'published_at', type: 'date', nullable: true })
+  @Column({ type: 'date', nullable: true })
   publishedAt?: Date;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn()
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at' })
+  @UpdateDateColumn()
   updatedAt: Date;
 }
