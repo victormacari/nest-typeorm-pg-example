@@ -19,7 +19,7 @@ export class Author {
   @Column()
   lastName: string;
 
-  @Column()
+  @Column({ type: 'date' })
   birthday: Date;
 
   @OneToMany(
